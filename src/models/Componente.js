@@ -10,7 +10,6 @@ Componente.init({
     },
     descripcion: {
         type: DataTypes.STRING,
-        allowNull: false,
     }
     },{sequelize,modelName:'componente'}
 )
