@@ -1,4 +1,4 @@
-const { Componente } = require('../models')
+const { Fabricante, Producto, Componente } = require('../models')
 const componenteController = {}
 
 
@@ -46,5 +46,18 @@ const deleteComponenteById = async (req, res) => {
 }
 componenteController.deleteComponenteById = deleteComponenteById
 
-
+const componentesDelProductoConId= async (req, res) => {
+    const id =  req.params.id;
+    const componente = await Componente.findOne({
+        where: {id},
+        attributes: ['id','nombre','descripcion'],
+        include: {
+            model: Producto,
+            attributes: ['id','nombre','descripcion','precio','pathImg'],
+            through: {attributes:[]},
+        }
+    });
+    res.status(200).json(componente)
+}
+componenteController.componentesDelProductoConId=componentesDelProductoConId
 module.exports = componenteController

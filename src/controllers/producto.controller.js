@@ -1,4 +1,4 @@
-const { Producto } = require('../models')
+const { Producto, Fabricante, Componente } = require('../models')
 const productosController= {}
 
 const addProducto = async (req,res) => {
@@ -45,8 +45,37 @@ productosController.updateProducto= updateProducto
 const deleteProductoById = async (req,res) => {
     const id = req.params.id
     const productoEliminado = await Producto.destroy({where: {id}})
-    res.status(204).json({mensaje:  `el producto ${productoEliminado} fue eliminado`})
+    res.status(204).json({mensaje:  `el componente ${productoEliminado} fue eliminado`})//BORRA PERO NO ME DEVUELVE EL MENSAJE 
 }
 productosController.deleteProductoById = deleteProductoById
 
+const fabricantesDelProductoConId= async (req, res) => {
+    const id =  req.params.id;
+    const producto = await Producto.findOne({
+        where: {id},
+        attributes: ['id','nombre','descripcion','precio','pathImg'],
+        include: {
+            model: Fabricante,
+            attributes: ['id','nombre', 'direccion', 'numeroContacto', 'pathImgPerfil'],    
+            through: {attributes:[]}
+        }
+    });
+    res.status(200).json(producto)
+}
+productosController.fabricantesDelProductoConId= fabricantesDelProductoConId
+
+const componentesDelProductoConId= async (req, res) => {
+    const id =  req.params.id;
+    const producto = await Producto.findOne({
+        where: {id},
+        attributes: ['id','nombre','descripcion','precio','pathImg'],
+        include: {
+            model: Componente,
+            attributes: ['id','nombre','descripcion'],    
+            through: {attributes:[]}
+        }
+    });
+    res.status(200).json(producto)
+}
+productosController.componentesDelProductoConId= componentesDelProductoConId
 module.exports = productosController

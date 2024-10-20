@@ -1,4 +1,4 @@
-const { Fabricante } = require('../models')
+const { Fabricante, Producto, Componente } = require('../models')
 const fabricantesController = {}
 
 
@@ -49,5 +49,24 @@ const deleteFabricanteById = async (req, res) => {
 }
 fabricantesController.deleteFabricanteById = deleteFabricanteById
 
+const productosDelFabricanteConId= async (req, res) => {
+    const id =  req.params.id;
+    const fabricante = await Fabricante.findOne({
+        where: {id},
+        attributes: ['id','nombre', 'direccion', 'numeroContacto', 'pathImgPerfil'],
+        include: {
+            model: Producto,
+            attributes: ['id','nombre','descripcion','precio','pathImg'],
+            through: {attributes:[]},
+            include: {
+                model: Componente,
+                through: {attributes:[]},
+                attributes: ['id','nombre','descripcion']
+            }
+        }
+    });
+    res.status(200).json(fabricante)
+}
+fabricantesController.productosDelFabricanteConId= productosDelFabricanteConId
 
 module.exports = fabricantesController
