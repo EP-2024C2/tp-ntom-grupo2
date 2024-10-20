@@ -8,6 +8,6 @@ routes.get('/:id', componenteController.getComponenteById)
 routes.post('/', componenteController.addComponente)
 routes.put('/:id', componenteController.updateComponente)
 routes.delete('/:id', componenteController.deleteComponenteById)
-
+routes.get('/:id/productos',componenteController.componentesDelProductoConId)
 
 module.exports = routes

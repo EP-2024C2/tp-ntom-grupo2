@@ -8,5 +8,5 @@ routes.get('/:id', fabricanteController.getFabricanteById)
 routes.post('/', fabricanteController.addFabricante)
 routes.put('/:id', fabricanteController.updateFabricante)
 routes.delete('/:id', fabricanteController.deleteFabricanteById)
-
+routes.get('/:id/productos',fabricanteController.productosDelFabricanteConId)
 module.exports = routes
