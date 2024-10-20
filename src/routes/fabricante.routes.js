@@ -3,7 +3,10 @@ const fabricanteController = require('../controllers/fabricante.controller')
 
 const routes = Router()
 
-routes.get('/', )
-
+routes.get('/', fabricanteController.getFabricantes)
+routes.get('/:id', fabricanteController.getFabricanteById)
+routes.post('/', fabricanteController.addFabricante)
+routes.put('/:id', fabricanteController.updateFabricante)
+routes.delete('/:id', fabricanteController.deleteFabricanteById)
 
 module.exports = routes
