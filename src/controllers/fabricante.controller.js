@@ -8,13 +8,13 @@ const addFabricante = async (req, res) => {
     const fabricante = await Fabricante.create({
         nombre, direccion, numeroContacto, pathImgPerfil
     })
-    res.json(fabricante)
+    res.status(201).json(fabricante)
 }
 fabricantesController.addFabricante = addFabricante
 
 const getFabricantes = async (req, res) => {
     const fabricantes = await Fabricante.findAll()
-    res.json(fabricantes)
+    res.status(200).json(fabricantes)
 }
 fabricantesController.getFabricantes = getFabricantes
 
@@ -24,7 +24,7 @@ const getFabricanteById = async (req, res) => {
         where: { id },
         attributes: ['nombre', 'direccion', 'numeroContacto', "pathImgPerfil"]
     })
-    res.json(fabricante)
+    res.status(200).json(fabricante)
 }
 fabricantesController.getFabricanteById = getFabricanteById
 
@@ -36,7 +36,7 @@ const updateFabricante = async (req, res) => {
         direccion, numeroContacto,
         pathImgPerfil
     }, { where: { id } })
-    const fabricanteActualizado= await Fabricante.findOne({
+    const fabricanteActualizado= await fabricanteAActualizar.findOne({
         where: {id},attributes: ['nombre', 'direccion', 'numeroContacto', "pathImgPerfil"]
     })
     res.status(200).json(fabricanteActualizado)
@@ -44,10 +44,9 @@ const updateFabricante = async (req, res) => {
 fabricantesController.updateFabricante = updateFabricante
 
 const deleteFabricanteById = async (req, res) => {
-    const id = req.params.id
-    console.log(fabricante)
+    const id = req.params.id;
     const fabricanteEliminado = await Fabricante.destroy({ where: { id } })
-    res.json({ mensaje: `el fabricante ${fabricanteEliminado} fue eliminado de la lista de contactos` })//BORRA PERO NO ME DEVUELVE EL MENSAJE 
+    res.status(200).json({ mensaje: `el fabricante ${fabricanteEliminado} fue eliminado de la lista de contactos` })//BORRA PERO NO ME DEVUELVE EL MENSAJE 
 }
 fabricantesController.deleteFabricanteById = deleteFabricanteById
 
