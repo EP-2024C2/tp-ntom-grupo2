@@ -7,13 +7,13 @@ const addProducto = async (req,res) => {
     const producto = await Producto.create({
         nombre, descripcion,precio,pathImg 
     })
-    res.json(producto)
+    res.status(201).json(producto)
 }
 productosController.addProducto= addProducto
 
 const getProductos = async (req,res) => {
     const productos = await Producto.findAll()
-    res.json(productos)
+    res.status(200).json(productos)
 }
 productosController.getProductos = getProductos
 
@@ -25,7 +25,7 @@ const getProductoById = async (req,res) => {
         where: {id},
         attributes: ['nombre','descripcion','precio']
     })
-    res.json(producto)
+    res.status(200).json(producto)
 }
 productosController.getProductoById = getProductoById
 
@@ -47,8 +47,12 @@ productosController.updateProducto= updateProducto
 
 const deleteProductoById = async (req,res) => {
     const id = req.params.id
-    const productoEliminado = await Producto.destroy({where: {id}})
-    res.status(204).json({mensaje:  `el componente ${productoEliminado} fue eliminado`})//BORRA PERO NO ME DEVUELVE EL MENSAJE 
+    try{
+        await Producto.destroy({where: {id}});
+        res.status(200).json({mensaje:`el componente ${productoEliminado} fue eliminado`})
+    } catch (error){
+        res.status(500).json({mensaje:  `error al elimninar el componente`})
+    } 
 }
 productosController.deleteProductoById = deleteProductoById
 
