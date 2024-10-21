@@ -53,7 +53,7 @@ const deleteProductoById = async (req,res) => {
     try{
         await Producto.destroy({where: {id}});
         res.status(200).json({mensaje:`el producto fue eliminado`})
-    } catch (error){
+    } catch{
         res.status(500).json({mensaje: `error al elimninar el producto`})
     } 
 }

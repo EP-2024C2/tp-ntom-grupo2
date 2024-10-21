@@ -4,17 +4,20 @@ const componenteController = {}
 
 const addComponente = async (req, res) => {
     const { nombre,descripcion } = req.body
-
-    const componente = await Componente.create({
+    try{
+        const componente = await Componente.create({
         nombre,descripcion
-    })
-    res.json(componente)
+        })
+        res.status(201).json(componente)
+    }catch{
+    res.status(400).json('el servidor no puede procesar la solicitud')
+    }
 }
 componenteController.addComponente = addComponente
 
 const getComponentes = async (req, res) => {
     const componentes = await Componente.findAll()
-    res.json(componentes)
+    res.status(200).json(componentes)
 }
 componenteController.getComponentes = getComponentes
 
@@ -24,7 +27,7 @@ const getComponenteById = async (req, res) => {
         where: { id },
         attributes: ['nombre', 'descripcion']
     })
-    res.json(componente)
+    res.status(200).json(componente)
 }
 componenteController.getComponenteById= getComponenteById
 
@@ -34,7 +37,7 @@ const updateComponente = async (req, res) => {
     const componenteAActualizar = await Componente.update({
         nombre, descripcion
     }, { where: { id } })
-    const componenteActualizado= await Componente.findOne({
+    const componenteActualizado= await componenteAActualizar.findOne({
         where: {id},attributes: ['nombre','descripcion']
     })
     res.status(200).json(componenteActualizado)
@@ -43,8 +46,12 @@ componenteController.updateComponente = updateComponente
 
 const deleteComponenteById = async (req, res) => {
     const id = req.params.id
-    const componenteEliminado = await Componente.destroy({ where: { id } })
-    res.json({ mensaje: `el componente fue eliminado` })//BORRA PERO NO ME DEVUELVE EL MENSAJE 
+    try{
+        await Componente.destroy({ where: { id } })
+        res.json({ mensaje: `el componente fue eliminado` })
+    } catch{
+    res.status(500).json({mensaje: `error al elimninar el componente`})
+    } 
 }
 componenteController.deleteComponenteById = deleteComponenteById
 
