@@ -3,11 +3,14 @@ const productosController= {}
 
 const addProducto = async (req,res) => {
     const{nombre, descripcion,precio,pathImg} = req.body
-
-    const producto = await Producto.create({
+    try{
+        const producto = await Producto.create({
         nombre, descripcion,precio,pathImg 
-    })
-    res.status(201).json(producto)
+        })
+        res.status(201).json(producto)
+    }catch{
+        res.status(400).json('el servidor no puede procesar la solicitud')
+    }
 }
 productosController.addProducto= addProducto
 
@@ -51,7 +54,7 @@ const deleteProductoById = async (req,res) => {
         await Producto.destroy({where: {id}});
         res.status(200).json({mensaje:`el producto fue eliminado`})
     } catch (error){
-        res.status(500).json({mensaje:  `error al elimninar el producto`})
+        res.status(500).json({mensaje: `error al elimninar el producto`})
     } 
 }
 productosController.deleteProductoById = deleteProductoById

@@ -4,11 +4,14 @@ const fabricantesController = {}
 
 const addFabricante = async (req, res) => {
     const { nombre, direccion, numeroContacto, pathImgPerfil } = req.body
-
-    const fabricante = await Fabricante.create({
+    try{
+        const fabricante = await Fabricante.create({
         nombre, direccion, numeroContacto, pathImgPerfil
-    })
-    res.status(201).json(fabricante)
+        })
+        res.status(201).json(fabricante)
+    }catch{
+        res.status(400).json('el servidor no puede procesar la solicitud')
+    }
 }
 fabricantesController.addFabricante = addFabricante
 
@@ -45,9 +48,14 @@ fabricantesController.updateFabricante = updateFabricante
 
 const deleteFabricanteById = async (req, res) => {
     const id = req.params.id;
-    const fabricanteEliminado = await Fabricante.destroy({ where: { id } })
-    res.status(200).json({ mensaje: `el fabricante ${fabricanteEliminado} fue eliminado de la lista de contactos` })//BORRA PERO NO ME DEVUELVE EL MENSAJE 
+    try{
+        const fabricanteEliminado = await Fabricante.destroy({ where: { id } })
+        res.status(200).json({ mensaje: `el fabricante ${fabricanteEliminado} fue eliminado de la lista de contactos` })
+    }catch{
+        return res.status(500).send('Ocurrio un error con el servidor')
+    }
 }
+
 fabricantesController.deleteFabricanteById = deleteFabricanteById
 
 const productosDelFabricanteConId= async (req, res) => {
