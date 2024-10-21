@@ -4,10 +4,10 @@ const productosController= {}
 const addProducto = async (req,res) => {
     const{nombre, descripcion,precio,pathImg} = req.body
     try{
-        const producto = await Producto.create({
+        await Producto.create({
         nombre, descripcion,precio,pathImg 
         })
-        res.status(201).json(producto)
+        res.status(201).json({mensaje:'el producto fue agregado correctamente'})
     }catch{
         res.status(400).json('el servidor no puede procesar la solicitud')
     }
@@ -35,16 +35,13 @@ productosController.getProductoById = getProductoById
 const updateProducto = async (req,res) =>{
     const{nombre,descripcion,precio,pathImg} = req.body
     const id = req.params.id
-    const productoAActualizar = await Producto.update({
+    await Producto.update({ 
         nombre:nombre,
         descripcion:descripcion,
         pathImg:pathImg,
         precio:precio,
     },{where: {id}})
-    const prodActualizado= await Producto.findOne({
-        where: {id},attributes: ['id','nombre','descripcion','precio','pathImg']
-    })
-    res.status(200).json(prodActualizado)
+    res.status(200).json({mensaje:'el producto fue actualizado correctamente'})
 }
 productosController.updateProducto= updateProducto
 

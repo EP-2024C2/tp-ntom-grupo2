@@ -5,10 +5,10 @@ const fabricantesController = {}
 const addFabricante = async (req, res) => {
     const { nombre, direccion, numeroContacto, pathImgPerfil } = req.body
     try{
-        const fabricante = await Fabricante.create({
+        await Fabricante.create({
         nombre, direccion, numeroContacto, pathImgPerfil
         })
-        res.status(201).json(fabricante)
+        res.status(201).json({mensaje:'el fabricantes fue agregado correctamente'})
     }catch{
         res.status(400).json('el servidor no puede procesar la solicitud')
     }
@@ -34,23 +34,20 @@ fabricantesController.getFabricanteById = getFabricanteById
 const updateFabricante = async (req, res) => {
     const { nombre, direccion, numeroContacto, pathImgPerfil } = req.body
     const id = req.params.id
-    const fabricanteAActualizar = await Fabricante.update({
+    await Fabricante.update({
         nombre,
         direccion, numeroContacto,
         pathImgPerfil
     }, { where: { id } })
-    const fabricanteActualizado= await fabricanteAActualizar.findOne({
-        where: {id},attributes: ['nombre', 'direccion', 'numeroContacto', "pathImgPerfil"]
-    })
-    res.status(200).json(fabricanteActualizado)
+    res.status(200).json({mensaje:'el fabricante fue actualizado correctamente'})
 }
 fabricantesController.updateFabricante = updateFabricante
 
 const deleteFabricanteById = async (req, res) => {
     const id = req.params.id;
     try{
-        const fabricanteEliminado = await Fabricante.destroy({ where: { id } })
-        res.status(200).json({ mensaje: `el fabricante ${fabricanteEliminado} fue eliminado de la lista de contactos` })
+        await Fabricante.destroy({ where: { id } })
+        res.status(200).json({ mensaje: `el fabricante fue eliminado de la lista de contactos` })
     }catch{
         return res.status(500).send('Ocurrio un error con el servidor')
     }

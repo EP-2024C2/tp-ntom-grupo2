@@ -5,10 +5,10 @@ const componenteController = {}
 const addComponente = async (req, res) => {
     const { nombre,descripcion } = req.body
     try{
-        const componente = await Componente.create({
+        await Componente.create({
         nombre,descripcion
         })
-        res.status(201).json(componente)
+        res.status(201).json({mensaje:'el componente fue agregado correctamente'})
     }catch{
     res.status(400).json('el servidor no puede procesar la solicitud')
     }
@@ -34,13 +34,10 @@ componenteController.getComponenteById= getComponenteById
 const updateComponente = async (req, res) => {
     const { nombre, descripcion } = req.body
     const id = req.params.id
-    const componenteAActualizar = await Componente.update({
+    await Componente.update({
         nombre, descripcion
     }, { where: { id } })
-    const componenteActualizado= await componenteAActualizar.findOne({
-        where: {id},attributes: ['nombre','descripcion']
-    })
-    res.status(200).json(componenteActualizado)
+    res.status(200).json({mensaje:'el componente fue actualizado correctamente'})
 }
 componenteController.updateComponente = updateComponente
 
