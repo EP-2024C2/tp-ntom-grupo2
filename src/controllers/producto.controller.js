@@ -49,9 +49,9 @@ const deleteProductoById = async (req,res) => {
     const id = req.params.id
     try{
         await Producto.destroy({where: {id}});
-        res.status(200).json({mensaje:`el componente ${productoEliminado} fue eliminado`})
+        res.status(200).json({mensaje:`el producto fue eliminado`})
     } catch (error){
-        res.status(500).json({mensaje:  `error al elimninar el componente`})
+        res.status(500).json({mensaje:  `error al elimninar el producto`})
     } 
 }
 productosController.deleteProductoById = deleteProductoById
