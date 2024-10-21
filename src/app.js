@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express')
 const routes  = require('./routes/index')
 const sequelize = require('../config/database')
@@ -28,7 +29,7 @@ sequelize.sync()
     .catch(err => console.log('Error al sincronizar la base de datos', err));
 */
 
-const PORT = 3000
-app.listen(PORT, ()=>{
-    console.log(`Ejecutando servidor en puerto ${PORT}`)
+const port = process.env.PORT || 3000;
+app.listen(port, ()=>{
+    console.log(`Ejecutando servidor en puerto ${port}`)
 })
