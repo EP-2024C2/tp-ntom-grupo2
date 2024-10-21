@@ -38,7 +38,10 @@ const updateProducto = async (req,res) =>{
         pathImg:pathImg,
         precio:precio,
     },{where: {id}})
-    res.status(200).json(productoAActualizar)//VER XQ DEVUELVE EL ID
+    const prodActualizado= await Producto.findOne({
+        where: {id},attributes: ['id','nombre','descripcion','precio','pathImg']
+    })
+    res.status(200).json(prodActualizado)
 }
 productosController.updateProducto= updateProducto
 

@@ -22,7 +22,7 @@ const getComponenteById = async (req, res) => {
     const id = req.params.id
     const componente = await Componente.findOne({
         where: { id },
-        attributes: ['nombre']
+        attributes: ['nombre', 'descripcion']
     })
     res.json(componente)
 }
@@ -34,8 +34,10 @@ const updateComponente = async (req, res) => {
     const componenteAActualizar = await Componente.update({
         nombre, descripcion
     }, { where: { id } })
-
-    res.status(200).json(componenteAActualizar)//VER XQ DEVUELVE EL ID
+    const componenteActualizado= await Componente.findOne({
+        where: {id},attributes: ['nombre','descripcion']
+    })
+    res.status(200).json(componenteActualizado)
 }
 componenteController.updateComponente = updateComponente
 

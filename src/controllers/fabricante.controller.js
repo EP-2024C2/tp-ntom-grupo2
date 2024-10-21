@@ -36,8 +36,10 @@ const updateFabricante = async (req, res) => {
         direccion, numeroContacto,
         pathImgPerfil
     }, { where: { id } })
-
-    res.status(200).json(fabricanteAActualizar)//VER XQ DEVUELVE EL ID
+    const fabricanteActualizado= await Fabricante.findOne({
+        where: {id},attributes: ['nombre', 'direccion', 'numeroContacto', "pathImgPerfil"]
+    })
+    res.status(200).json(fabricanteActualizado)
 }
 fabricantesController.updateFabricante = updateFabricante
 
