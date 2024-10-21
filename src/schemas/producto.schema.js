@@ -16,7 +16,10 @@ const productoSchema = Joi.object().keys(
         "number.min": "preccio debe tener como mínimo {#limit}",
         "number.max": "precio debe tener como máximo {#limit}",
     }),
+<<<<<<< HEAD
     
+=======
+>>>>>>> 38a96df (schemas prod,fab,comp)
     pathImg: Joi.string().default('/images/productos/fondo_blanco.jpg'),
 
 }).unknown(false).messages ({
