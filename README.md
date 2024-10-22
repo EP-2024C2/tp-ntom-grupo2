@@ -1,3 +1,4 @@
+
 # Estrategias de Persistencia - TP 2024
 
 ## Descripción del Proyecto
@@ -17,7 +18,7 @@ git clone https://github.com/EP-2024C2/tp-ntom-grupo2.git
 ```
 
 ### Intalacion de dependencias
-Debera contar con las dependencias de produccion y desarrollo necesarias de un proyecto node. Por ejemplo:
+Debera contar con las dependencias de produccion y desarrollo necesarias de un proyecto node. Dentro del editor de código o en la misma terminal dentro del repositorio deberá correr el siguiente comando:
 
 ```npm i```
 
@@ -26,7 +27,7 @@ Debera contar con las dependencias de produccion y desarrollo necesarias de un p
 - crear un archivo de nombre vacio con extensión dentro de la carpeta src (raíz)
 
     ```.env```
-- Dentro del cual podra cambiar el puerto, el nombre y usuario, contraseña y tipo de base de datos, por defecto se encuentra sqlite, puerto 3008.
+- Dentro del cual podra cambiar el puerto, el nombre , usuario, contraseña y tipo de base de datos, por defecto se encuentra sqlite, puerto 3008.
 
 
     ```
