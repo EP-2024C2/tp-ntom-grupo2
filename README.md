@@ -1,19 +1,4 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/NoutYWiV)
 # Estrategias de Persistencia - TP 2024
-
-Este trabajo práctico tiene como objetivo principal que los alumnos adquieran experiencia práctica en la implementación de asociaciones 1 a N y N a M en el contexto de una API REST utilizando un ORM (Object-relational mapping).
-
-- Asociaciones 1 a N y N a M:
-Las asociaciones 1 a N y N a M son conceptos fundamentales en el diseño de bases de datos relacionales. En una asociación 1 a N, un registro de una tabla está asociado con uno o más registros de otra tabla. Por otro lado, en una asociación N a M, varios registros de una tabla están asociados con varios registros de otra tabla a través de una tabla de unión intermedia.
-
-- API REST:
-Una API REST (Representational State Transfer) es un conjunto de reglas y convenciones para la creación de servicios web que permiten la comunicación entre sistemas. En este trabajo práctico, utilizaremos una API REST para exponer recursos y permitir operaciones CRUD (Create, Read, Update, Delete) sobre estos recursos.
-
-- Enfoque Práctico:
-Los alumnos implementarán las asociaciones mencionadas anteriormente en el contexto de una API REST utilizando un ORM específico,Sequelize. Se espera que los alumnos comprendan cómo definir modelos, establecer relaciones entre ellos y utilizar las capacidades del ORM para interactuar con la base de datos.
-
-- Criterios de Evaluación:
-Se evaluará la precisión y completitud en la implementación de las asociaciones en la API REST, así como la funcionalidad completa del CRUD para los recursos expuestos por la API.
 
 ## Descripción del Proyecto
 
@@ -25,31 +10,40 @@ Basandose en el siguiente diagrama de entidad-relacion (DER) deberán generar lo
 
 ![DER](DER.png)
 
-### Descripción del modelo DER
-- Un **Producto** puede tener muchos fabricantes, y un **Fabricante** puede fabricar muchos productos.
-- Un **Producto** puede tener muchos componentes, y un **Componente** puede formar parte de varios productos.
-
-### Base de datos
-El motor de base de datos a utilizar podra ser elegido por los alumnos. La recomendacion es utilizar sqlite para pruebas simple y luego probar con otro motor de base de datos tipo MySql o Postgres.
+### Clonar repositorio
+Dentro de una terminal CMD o BASH copiar y dar enter a la siguiente línea para la instalación del repositorio en su pc.
+```
+git clone https://github.com/EP-2024C2/tp-ntom-grupo2.git
+```
 
 ### Intalacion de dependencias
 Debera contar con las dependencias de produccion y desarrollo necesarias de un proyecto node. Por ejemplo:
 
-```npm i sequelize sqlite3```
-
-```npm i -D sequelize-cli``` 
-
-### Tips - Comandos utililes
-- Inicializar un proyecto sequelize 
-
-```npx sequelize-cli init```
-- Generar un modelos simple
+```npm i```
 
 
-```npx sequelize-cli model:generate --name Carrera --attributes "nombre:string,grado:string,universidad:string"```
+### Tips - Variables de entorno
+- crear un archivo de nombre vacio con extensión dentro de la carpeta src (raíz)
 
-## API
-Implementar la API utilizando el framework express en el entorde de ejecucion de un poryecto NodeJs. Organizar el código en rutas, controlers y middleware utilizando la separación por recurso. A continuación se detallan los endpoinds que deberán estar disponbiles en la API.
+    ```.env```
+- Dentro del cual podra cambiar el puerto, el nombre y usuario, contraseña y tipo de base de datos, por defecto se encuentra sqlite, puerto 3008.
+
+
+    ```
+    DB_NAME = 'Nombre de base de datos';
+    DB_USER = 'Usuario';
+    DB_PASS = 'Contraseña';
+    DB_HOST = 'Dirección IP';
+    DB_DIALECT = Sqlite;
+    PORT = 3000 
+    ```
+- El archivo de variables de entorno por configuración y seguridad no se clona junto al repositorio.
+
+### Inicializar proyecto
+
+El servicio estará corriento en http:localhost:3008  por defecto o en el puerto definido dentro de la variable de entorno.
+
+### Verbo - recursos - status - Descripción
 
 
 |Verbo|Recurso|Status code|Descripción|
@@ -163,13 +157,6 @@ Obtiene los datos del producto registrado con el id 1, con todos los fabricantes
 }
 ```
 
-## Consideraciones Finales sobre la Entrega
-
-- El equipo debera entegar un repositorio de github con todas las instrucciones necesarias para correr la api. 
-- Deberán  detallar los commandos necesarios para la instalación y ejecución de la api.
-- Dentro del Readme.md deberá tener una imagen del diagrama entidad-relacion
-- El puerto de listener deberá ser configurable por variable de entorno
-- La entega debe soportar cambiar la configuración del motor de base de datos de forma simple en funcion de probar con distintos motores.
 
 
 
